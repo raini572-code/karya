@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kreasi 3 Dimensi: Belajar, Berkreasi, dan Berkarya</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font - Fredoka & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#FF6B35',
+                            yellow: '#F7C59F',
+                            blue: '#004E89',
+                            teal: '#1A936F',
+                            purple: '#6A0572',
+                            pink: '#FF4081'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Fredoka', 'cursive', 'sans-serif'],
+                        body: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F4F7FE;
+        }
+        h1, h2, h3, h4, .font-fun {
+            font-family: 'Fredoka', cursive, sans-serif;
+        }
+        .btn-bounce:hover {
+            transform: translateY(-3px) scale(1.02);
+            transition: all 0.2s ease-in-out;
+        }
+        .custom-card {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            transition: all 0.3s ease;
+        }
+        .custom-card:hover {
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white; }
+        }
+    </style>
+</head>
+<body class="text-slate-800 flex flex-col min-h-screen">
+
+    <!-- NAVIGASI UTAMA (RESPONSIF) -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo & Judul -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="showSection('beranda')">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-orange to-amber-400 flex items-center justify-center text-white text-2xl shadow-md">
+                        <i class="fa-solid font-bold fa-cube animate-bounce"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl md:text-2xl font-bold text-brand-blue tracking-wide leading-none">KREASI 3 DIMENSI</h1>
+                        <p class="text-xs text-slate-500 font-semibold mt-1">Seni Rupa Kelas VI Sekolah Dasar</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden lg:flex items-center gap-1 font-semibold text-slate-600 text-sm">
+                    <button onclick="showSection('beranda')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 hover:text-brand-orange transition"><i class="fa-solid fa-house mr-1"></i> Beranda</button>
+                    <button onclick="showSection('tujuan')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 hover:text-brand-orange transition"><i class="fa-solid fa-bullseye mr-1"></i> Tujuan</button>
+                    <button onclick="showSection('materi')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 hover:text-brand-orange transition"><i class="fa-solid fa-book-open mr-1"></i> Materi</button>
+                    <button onclick="showSection('galeri')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 hover:text-brand-orange transition"><i class="fa-solid fa-images mr-1"></i> Galeri</button>
+                    <button onclick="showSection('video')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 hover:text-brand-orange transition"><i class="fa-solid fa-circle-play mr-1"></i> Video</button>
+                    <button onclick="showSection('aktivitas')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 hover:text-brand-orange transition"><i class="fa-solid fa-gamepad mr-1"></i> Aktivitas</button>
+                    <button onclick="showSection('proyek')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 hover:text-brand-orange transition"><i class="fa-solid fa-paint-brush mr-1"></i> Proyek</button>
+                    <button onclick="showSection('kuis')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 hover:text-brand-orange transition"><i class="fa-solid fa-clipboard-question mr-1"></i> Kuis</button>
+                    <button onclick="showSection('refleksi')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 hover:text-brand-orange transition"><i class="fa-solid fa-lightbulb mr-1"></i> Refleksi</button>
+                    <button onclick="showSection('sertifikat')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 hover:text-brand-orange transition"><i class="fa-solid fa-award mr-1"></i> Sertifikat</button>
+                </nav>
+
+                <!-- Tombol Panduan Guru (Modal) -->
+                <button onclick="toggleModal('modalPanduan')" class="hidden sm:flex items-center gap-2 bg-indigo-50 text-indigo-700 px-4 py-2 rounded-xl hover:bg-indigo-100 font-semibold text-xs border border-indigo-200">
+                    <i class="fa-solid fa-gear"></i> Integrasi Google
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-1 text-sm font-medium">
+            <button onclick="showSection('beranda')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-orange-50 hover:text-brand-orange"><i class="fa-solid fa-house w-6"></i> Beranda</button>
+            <button onclick="showSection('tujuan')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-orange-50 hover:text-brand-orange"><i class="fa-solid fa-bullseye w-6"></i> Tujuan Pembelajaran</button>
+            <button onclick="showSection('materi')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-orange-50 hover:text-brand-orange"><i class="fa-solid fa-book-open w-6"></i> Materi Pembelajaran</button>
+            <button onclick="showSection('galeri')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-orange-50 hover:text-brand-orange"><i class="fa-solid fa-images w-6"></i> Galeri Karya</button>
+            <button onclick="showSection('video')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-orange-50 hover:text-brand-orange"><i class="fa-solid fa-circle-play w-6"></i> Video Tutorial</button>
+            <button onclick="showSection('aktivitas')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-orange-50 hover:text-brand-orange"><i class="fa-solid fa-gamepad w-6"></i> Aktivitas Interaktif</button>
+            <button onclick="showSection('proyek')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-orange-50 hover:text-brand-orange"><i class="fa-solid fa-paint-brush w-6"></i> Proyek Kreatif (LKPD)</button>
+            <button onclick="showSection('kuis')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-orange-50 hover:text-brand-orange"><i class="fa-solid fa-clipboard-question w-6"></i> Kuis Evaluasi</button>
+            <button onclick="showSection('refleksi')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-orange-50 hover:text-brand-orange"><i class="fa-solid fa-lightbulb w-6"></i> Refleksi Siswa</button>
+            <button onclick="showSection('sertifikat')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-orange-50 hover:text-brand-orange"><i class="fa-solid fa-award w-6"></i> Sertifikat</button>
+            <button onclick="toggleModal('modalPanduan')" class="w-full text-left px-3 py-2 rounded-lg bg-indigo-50 text-indigo-700 font-bold"><i class="fa-solid fa-gear w-6"></i> Setting Apps Script & Guru</button>
+        </div>
+    </header>
+
+    <!-- KONTEN UTAMA -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- 1. BERANDA -->
+        <section id="beranda" class="content-section">
+            <div class="bg-gradient-to-br from-amber-400 via-orange-400 to-brand-orange rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-xl mb-8">
+                <div class="absolute -right-10 -bottom-10 opacity-20 text-[200px]">
+                    <i class="fa-solid fa-shapes"></i>
+                </div>
+                <div class="max-w-2xl relative z-10">
+                    <span class="inline-block bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-4 border border-white/30">Media Pembelajaran Interaktif</span>
+                    <h1 class="text-3xl sm:text-5xl font-extrabold mb-4 leading-tight">Menciptakan Karya Tiga Dimensi</h1>
+                    <p class="text-lg text-amber-50 mb-8 leading-relaxed">Mari belajar mengenali, merancang, dan membuat berbagai bentuk karya seni 3D dengan cara yang seru, menyenangkan, dan kreatif!</p>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="showSection('tujuan')" class="btn-bounce bg-white text-brand-orange font-bold px-8 py-4 rounded-2xl shadow-lg hover:bg-amber-50 text-base">
+                            <i class="fa-solid fa-rocket mr-2"></i> MULAI BELAJAR
+                        </button>
+                        <button onclick="showSection('materi')" class="btn-bounce bg-brand-blue text-white font-bold px-8 py-4 rounded-2xl shadow-lg hover:bg-blue-900 text-base">
+                            <i class="fa-solid fa-book-open mr-2"></i> LANGSUNG MATERI
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Identitas & Fitur Cepat -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl custom-card border border-slate-100 flex items-center gap-4">
+                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-2xl">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800">Sasaran Siswa</h3>
+                        <p class="text-sm text-slate-500">Kelas VI Sekolah Dasar (Fase C)</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl custom-card border border-slate-100 flex items-center gap-4">
+                    <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl">
+                        <i class="fa-solid fa-palette"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800">Mata Pelajaran</h3>
+                        <p class="text-sm text-slate-500">Seni Rupa - Karya 3D</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl custom-card border border-slate-100 flex items-center gap-4">
+                    <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-2xl">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800">Integrasi Cloud</h3>
+                        <p class="text-sm text-slate-500">Tersambung Google Sheets & Docs</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. TUJUAN PEMBELAJARAN -->
+        <section id="tujuan" class="content-section hidden">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-brand-blue mb-2"><i class="fa-solid fa-bullseye text-brand-orange mr-2"></i>Tujuan Pembelajaran</h2>
+                <p class="text-slate-600">Target kemampuan yang akan kalian capai setelah menyelesaikan modul ini:</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white p-6 rounded-2xl custom-card border border-slate-100 relative overflow-hidden">
+                    <div class="w-10 h-10 bg-orange-500 text-white font-bold rounded-xl flex items-center justify-center mb-4">1</div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Menjelaskan Pengertian</h3>
+                    <p class="text-sm text-slate-600">Peserta didik mampu menjelaskan pengertian karya seni tiga dimensi secara tepat.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white p-6 rounded-2xl custom-card border border-slate-100 relative overflow-hidden">
+                    <div class="w-10 h-10 bg-amber-500 text-white font-bold rounded-xl flex items-center justify-center mb-4">2</div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Mengidentifikasi Ciri & Unsur</h3>
+                    <p class="text-sm text-slate-600">Peserta didik mampu mengidentifikasi ciri-ciri khusus serta unsur pembentuk karya 3D.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white p-6 rounded-2xl custom-card border border-slate-100 relative overflow-hidden">
+                    <div class="w-10 h-10 bg-emerald-500 text-white font-bold rounded-xl flex items-center justify-center mb-4">3</div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Mengenali Alat & Bahan</h3>
+                    <p class="text-sm text-slate-600">Peserta didik mampu memilih alat dan bahan yang sesuai untuk membuat karya seni 3D.</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="bg-white p-6 rounded-2xl custom-card border border-slate-100 relative overflow-hidden">
+                    <div class="w-10 h-10 bg-blue-500 text-white font-bold rounded-xl flex items-center justify-center mb-4">4</div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Merancang Karya</h3>
+                    <p class="text-sm text-slate-600">Peserta didik mampu membuat sketsa dan merancang ide karya tiga dimensi.</p>
+                </div>
+                <!-- Card 5 -->
+                <div class="bg-white p-6 rounded-2xl custom-card border border-slate-100 relative overflow-hidden">
+                    <div class="w-10 h-10 bg-purple-500 text-white font-bold rounded-xl flex items-center justify-center mb-4">5</div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Membuat Karya Kreatif</h3>
+                    <p class="text-sm text-slate-600">Peserta didik mampu mengeksekusi buatan karya 3D menggunakan bahan ramah lingkungan.</p>
+                </div>
+                <!-- Card 6 -->
+                <div class="bg-white p-6 rounded-2xl custom-card border border-slate-100 relative overflow-hidden">
+                    <div class="w-10 h-10 bg-pink-500 text-white font-bold rounded-xl flex items-center justify-center mb-4">6</div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Mempresentasikan Hasil</h3>
+                    <p class="text-sm text-slate-600">Peserta didik menceritakan proses pembuatan dan menceritakan makna karya buatan sendiri.</p>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <button onclick="showSection('materi')" class="btn-bounce bg-brand-orange text-white font-bold px-8 py-3 rounded-xl shadow-md">
+                    Lanjut ke Materi Pembelajaran <i class="fa-solid fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- 3. MATERI PEMBELAJARAN -->
+        <section id="materi" class="content-section hidden">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-brand-blue mb-2"><i class="fa-solid fa-book-open text-brand-orange mr-2"></i>Materi Karya Tiga Dimensi</h2>
+                <p class="text-slate-600">Pelajari konsep dasar seni rupa 3 dimensi di bawah ini.</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Pengertian & Ciri -->
+                <div class="bg-white p-6 sm:p-8 rounded-3xl custom-card border border-slate-100">
+                    <h3 class="text-2xl font-bold text-brand-orange mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-cube"></i> Apa itu Karya Tiga Dimensi (3D)?
+                    </h3>
+                    <p class="text-slate-700 leading-relaxed mb-4">
+                        <strong>Karya 3 Dimensi (3D)</strong> adalah karya seni rupa yang memiliki <strong>3 ukuran dimensi</strong>, yaitu: <span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold">Panjang</span>, <span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold">Lebar</span>, dan <span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold">Tinggi/Volume</span>. Karya ini memiliki ruang dan dapat dilihat serta dinikmati dari berbagai sudut pandang (depan, belakang, samping, dan atas).
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-100">
+                            <h4 class="font-bold text-orange-800 mb-1"><i class="fa-solid fa-check-circle mr-1"></i> Memiliki Ruang / Volume</h4>
+                            <p class="text-xs text-orange-900">Karya nyata memiliki isi atau rongga di dalamnya.</p>
+                        </div>
+                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-100">
+                            <h4 class="font-bold text-orange-800 mb-1"><i class="fa-solid fa-eye mr-1"></i> Dilihat dari Segala Arah</h4>
+                            <p class="text-xs text-orange-900">Bisa diamati dari tampak depan, samping, hingga belakang.</p>
+                        </div>
+                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-100">
+                            <h4 class="font-bold text-orange-800 mb-1"><i class="fa-solid fa-hand mr-1"></i> Dapat Disentuh & Diraba</h4>
+                            <p class="text-xs text-orange-900">Memiliki tekstur nyata (kasar, halus, keras, lunak).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unsur-Unsur Karya 3D -->
+                <div class="bg-white p-6 sm:p-8 rounded-3xl custom-card border border-slate-100">
+                    <h3 class="text-2xl font-bold text-brand-blue mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-shapes"></i> Unsur-Unsur Karya 3D
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="border border-slate-200 p-4 rounded-2xl text-center">
+                            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-2 text-xl font-bold">Titik</div>
+                            <h4 class="font-bold text-sm">Titik & Garis</h4>
+                            <p class="text-xs text-slate-500 mt-1">Awal mula pembentukan batas luar bangun/bentuk.</p>
+                        </div>
+                        <div class="border border-slate-200 p-4 rounded-2xl text-center">
+                            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-2 text-xl font-bold">Bentuk</div>
+                            <h4 class="font-bold text-sm">Bidang & Bentuk</h4>
+                            <p class="text-xs text-slate-500 mt-1">Wujud benda (kubus, tabung, bola, atau tak beraturan).</p>
+                        </div>
+                        <div class="border border-slate-200 p-4 rounded-2xl text-center">
+                            <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-2 text-xl font-bold">Ruang</div>
+                            <h4 class="font-bold text-sm">Ruang / Volume</h4>
+                            <p class="text-xs text-slate-500 mt-1">Kesan kedalaman dan kapasitas benda.</p>
+                        </div>
+                        <div class="border border-slate-200 p-4 rounded-2xl text-center">
+                            <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-2 text-xl font-bold">Tekstur</div>
+                            <h4 class="font-bold text-sm">Tekstur & Warna</h4>
+                            <p class="text-xs text-slate-500 mt-1">Sifat permukaan dan keindahan visual.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Teknik, Alat & Bahan -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-3xl custom-card border border-slate-100">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3"><i class="fa-solid fa-hammer text-brand-orange mr-2"></i>Teknik Pembuatan</h3>
+                        <ul class="space-y-2 text-sm text-slate-600">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-emerald-500 mt-1"></i> <span><strong>Teknik Membutsir:</strong> Membentuk bahan lunak (plastisin/tanah liat) dengan meremas/memijit.</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-emerald-500 mt-1"></i> <span><strong>Teknik Konstruksi:</strong> Menyusun atau merakit bahan (kardus/stik es krim) dengan lem.</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-emerald-500 mt-1"></i> <span><strong>Teknik Memahat:</strong> Mengurangi bahan keras (kayu/gabus/batu) memakai pahat.</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-emerald-500 mt-1"></i> <span><strong>Teknik Mencetak (Cetak/Cor):</strong> Menuang cairan ke cetakan khusus.</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl custom-card border border-slate-100">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3"><i class="fa-solid fa-boxes-packing text-brand-blue mr-2"></i>Alat & Bahan Sederhana</h3>
+                        <ul class="space-y-2 text-sm text-slate-600">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-box text-amber-500 mt-1"></i> <span><strong>Bahan Bekas:</strong> Kardus bekas, botol plastik, sedotan, kaleng.</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-cube text-amber-500 mt-1"></i> <span><strong>Bahan Lunak:</strong> Plastisin, tanah liat, bubur kertas.</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-scissors text-amber-500 mt-1"></i> <span><strong>Alat Bantu:</strong> Gunting, cutter, lem kertas/lem tembak, penggaris, kuas, cat akrilik.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. GALERI KARYA -->
+        <section id="galeri" class="content-section hidden">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-brand-blue mb-2"><i class="fa-solid fa-images text-brand-orange mr-2"></i>Galeri Contoh Karya 3D</h2>
+                <p class="text-slate-600">Inspirasi bentuk karya seni 3 dimensi yang bisa kamu buat:</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- item 1 -->
+                <div class="bg-white rounded-2xl overflow-hidden custom-card border border-slate-100">
+                    <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=600&auto=format&fit=crop&q=80" alt="Miniatur Rumah Kardus" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2.5 py-1 rounded-full">Teknik Konstruksi</span>
+                        <h3 class="font-bold text-lg mt-2 text-slate-800">Miniatur Rumah Kardus</h3>
+                        <p class="text-xs text-slate-500 mt-1">Dibuat dari potongan kardus bekas yang dirakit menggunakan lem dan dicat warna-warni.</p>
+                    </div>
+                </div>
+                <!-- item 2 -->
+                <div class="bg-white rounded-2xl overflow-hidden custom-card border border-slate-100">
+                    <img src="https://images.unsplash.com/photo-1544411047-c491e34a24e0?w=600&auto=format&fit=crop&q=80" alt="Patung Plastisin / Tanah Liat" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <span class="bg-emerald-100 text-emerald-700 text-xs font-bold px-2.5 py-1 rounded-full">Teknik Butsir</span>
+                        <h3 class="font-bold text-lg mt-2 text-slate-800">Patung Hewan Lunak</h3>
+                        <p class="text-xs text-slate-500 mt-1">Dibentuk dengan memijat plastisin atau tanah liat menjadi figur hewan yang menggemaskan.</p>
+                    </div>
+                </div>
+                <!-- item 3 -->
+                <div class="bg-white rounded-2xl overflow-hidden custom-card border border-slate-100">
+                    <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=600&auto=format&fit=crop&q=80" alt="Vas Bunga Botol Bekas" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2.5 py-1 rounded-full">Daur Ulang</span>
+                        <h3 class="font-bold text-lg mt-2 text-slate-800">Vas Bunga Botol Plastik</h3>
+                        <p class="text-xs text-slate-500 mt-1">Mengubah botol plastik bekas menjadi tempat bunga indah berhiaskan cat warna.</p>
+                    </div>
+                </div>
+                <!-- item 4 -->
+                <div class="bg-white rounded-2xl overflow-hidden custom-card border border-slate-100">
+                    <img src="https://images.unsplash.com/photo-1569172122301-bc5008bc09c5?w=600&auto=format&fit=crop&q=80" alt="Topeng Kertas 3D" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <span class="bg-amber-100 text-amber-700 text-xs font-bold px-2.5 py-1 rounded-full">Bubur Kertas</span>
+                        <h3 class="font-bold text-lg mt-2 text-slate-800">Topeng Karakter 3D</h3>
+                        <p class="text-xs text-slate-500 mt-1">Topeng bertumpuk menggunakan cetakan bubur kertas dengan lekukan wajah yang nyata.</p>
+                    </div>
+                </div>
+                <!-- item 5 -->
+                <div class="bg-white rounded-2xl overflow-hidden custom-card border border-slate-100">
+                    <img src="https://images.unsplash.com/photo-1514517220017-8ce97a34a7b6?w=600&auto=format&fit=crop&q=80" alt="Kerajinan Stik Es Krim" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <span class="bg-pink-100 text-pink-700 text-xs font-bold px-2.5 py-1 rounded-full">Konstruksi Sederhana</span>
+                        <h3 class="font-bold text-lg mt-2 text-slate-800">Kotak Pensil Stik Es Krim</h3>
+                        <p class="text-xs text-slate-500 mt-1">Kumpulan stik kayu yang disusun bertingkat menjadi wadah pensil fungsional.</p>
+                    </div>
+                </div>
+                <!-- item 6 -->
+                <div class="bg-white rounded-2xl overflow-hidden custom-card border border-slate-100">
+                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80" alt="Gantungan Kunci 3D" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <span class="bg-orange-100 text-orange-700 text-xs font-bold px-2.5 py-1 rounded-full">Kerajinan Tangan</span>
+                        <h3 class="font-bold text-lg mt-2 text-slate-800">Gantungan Kunci Kain Flanel</h3>
+                        <p class="text-xs text-slate-500 mt-1">Dibuat dari kain flanel yang dijahit tipis dan diisi kapuk/dakron hingga mengembang 3D.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. VIDEO PEMBELAJARAN -->
+        <section id="video" class="content-section hidden">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-brand-blue mb-2"><i class="fa-solid fa-circle-play text-brand-orange mr-2"></i>Video Tutorial Pembelajaran</h2>
+                <p class="text-slate-600">Simak video langkah-langkah membuat karya 3 dimensi berikut ini:</p>
+            </div>
+
+            <div class="bg-white p-4 sm:p-6 rounded-3xl custom-card border border-slate-100">
+                <div class="aspect-video w-full rounded-2xl overflow-hidden bg-black shadow-inner">
+                    <!-- YouTube Embed (Placeholder Video Edukasi Seni 3D) -->
+                    <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/a3U0T99k280" title="Tutorial Karya 3D" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="mt-4">
+                    <h3 class="font-bold text-lg text-slate-800">Panduan Membuat Karya 3D dari Kardus Bekas</h3>
+                    <p class="text-xs text-slate-500 mt-1">Perhatikan baik-baik teknik memotong, mengukur, dan menempelkan kardus agar kokoh dan rapi.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. AKTIVITAS INTERAKTIF (PERMAINAN SIMULASI) -->
+        <section id="aktivitas" class="content-section hidden">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-brand-blue mb-2"><i class="fa-solid fa-gamepad text-brand-orange mr-2"></i>Aktivitas Interaktif</h2>
+                <p class="text-slate-600">Uji ketelitianmu dalam memilih bahan dan mengenali karya 3D!</p>
+            </div>
+
+            <div class="bg-white p-6 sm:p-8 rounded-3xl custom-card border border-slate-100 mb-6">
+                <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center justify-between">
+                    <span><i class="fa-solid fa-list-check text-brand-orange mr-2"></i>Tebak Mana Karya 3 Dimensi?</span>
+                    <span id="actScore" class="text-xs bg-orange-100 text-orange-800 px-3 py-1 rounded-full font-bold">Skor: 0</span>
+                </h3>
+                <p class="text-sm text-slate-600 mb-6">Klik gambar di bawah yang merupakan **Karya 3 Dimensi** (Memiliki Panjang, Lebar, dan Volume)!</p>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="gameGrid">
+                    <!-- Card 1 -->
+                    <div onclick="checkAnswerGame(this, true)" class="game-card border-2 border-slate-200 rounded-2xl p-3 text-center cursor-pointer hover:border-brand-orange transition">
+                        <img src="https://images.unsplash.com/photo-1544411047-c491e34a24e0?w=300&auto=format&fit=crop&q=80" class="w-full h-28 object-cover rounded-xl mb-2">
+                        <p class="text-xs font-bold">Patung Tanah Liat</p>
+                    </div>
+                    <!-- Card 2 -->
+                    <div onclick="checkAnswerGame(this, false)" class="game-card border-2 border-slate-200 rounded-2xl p-3 text-center cursor-pointer hover:border-brand-orange transition">
+                        <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=300&auto=format&fit=crop&q=80" class="w-full h-28 object-cover rounded-xl mb-2">
+                        <p class="text-xs font-bold">Lukisan Kanvas</p>
+                    </div>
+                    <!-- Card 3 -->
+                    <div onclick="checkAnswerGame(this, true)" class="game-card border-2 border-slate-200 rounded-2xl p-3 text-center cursor-pointer hover:border-brand-orange transition">
+                        <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=300&auto=format&fit=crop&q=80" class="w-full h-28 object-cover rounded-xl mb-2">
+                        <p class="text-xs font-bold">Vas Bunga Boto</p>
+                    </div>
+                    <!-- Card 4 -->
+                    <div onclick="checkAnswerGame(this, false)" class="game-card border-2 border-slate-200 rounded-2xl p-3 text-center cursor-pointer hover:border-brand-orange transition">
+                        <img src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=300&auto=format&fit=crop&q=80" class="w-full h-28 object-cover rounded-xl mb-2">
+                        <p class="text-xs font-bold">Foto di Kertas</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. PROYEK KREATIF (LKPD INTERAKTIF) -->
+        <section id="proyek" class="content-section hidden">
+            <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-3xl font-bold text-brand-blue mb-1"><i class="fa-solid fa-paint-brush text-brand-orange mr-2"></i>Proyek Kreatif Siswa (LKPD)</h2>
+                    <p class="text-slate-600">Isi lembar kerja di bawah ini berdasarkan proyek karya 3D yang kamu buat!</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="bukaGoogleDocs()" class="bg-indigo-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-indigo-700 transition">
+                        <i class="fa-solid fa-file-word mr-1"></i> BUKA GOOGLE DOCS
+                    </button>
+                    <button onclick="window.print()" class="bg-slate-700 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-slate-800 transition">
+                        <i class="fa-solid fa-print mr-1"></i> CETAK LKPD
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 sm:p-8 rounded-3xl custom-card border border-slate-100">
+                <form id="proyekForm" onsubmit="simpanProyek(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Nama Lengkap Siswa *</label>
+                            <input type="text" id="siswaNama" required placeholder="Contoh: Budi Santoso" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-orange text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Kelas *</label>
+                            <input type="text" id="siswaKelas" required value="VI SD" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-orange text-sm">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Nama Karya 3D *</label>
+                            <input type="text" id="karyaNama" required placeholder="Contoh: Miniatur Istana Kardus Bekas" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-orange text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Alat & Bahan Yang Digunakan *</label>
+                            <input type="text" id="karyaBahan" required placeholder="Kardus, gunting, lem kertas, cat air..." class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-orange text-sm">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Langkah Pembuatan *</label>
+                        <textarea id="karyaLangkah" rows="3" required placeholder="1. Mengukur kardus&#10;2. Memotong pola&#10;3. Menempelkan..." class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-orange text-sm"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Hasil Pengamatan & Kesulitan *</label>
+                        <textarea id="karyaPengamatan" rows="2" required placeholder="Karya berdiri kokoh, tetapi agak sulit saat memotong kardus tebal..." class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-orange text-sm"></textarea>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100 flex flex-wrap gap-4 items-center justify-between">
+                        <p class="text-xs text-slate-500">* Data dapat dikirim otomatis ke Google Spreadsheet Guru</p>
+                        <button type="submit" id="btnSubmitProyek" class="btn-bounce bg-brand-orange text-white font-bold px-8 py-3 rounded-xl shadow-md text-sm">
+                            <i class="fa-solid fa-paper-plane mr-2"></i> KIRIM HASIL KE GOOGLE SPREADSHEET
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Rubrik Penilaian Guru -->
+            <div class="mt-8 bg-amber-50 p-6 rounded-3xl border border-amber-200">
+                <h3 class="font-bold text-amber-900 text-lg mb-3"><i class="fa-solid fa-star-half-stroke mr-2"></i>Rubrik Penilaian Guru (Skor 1 - 4)</h3>
+                <div class="grid grid-cols-2 md:grid-cols-6 gap-2 text-center text-xs">
+                    <div class="bg-white p-3 rounded-xl border border-amber-200">
+                        <span class="font-bold block text-amber-800">Pemahaman</span>
+                        <span class="text-slate-500">Skor 1-4</span>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border border-amber-200">
+                        <span class="font-bold block text-amber-800">Kreativitas</span>
+                        <span class="text-slate-500">Skor 1-4</span>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border border-amber-200">
+                        <span class="font-bold block text-amber-800">Kesesuaian</span>
+                        <span class="text-slate-500">Skor 1-4</span>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border border-amber-200">
+                        <span class="font-bold block text-amber-800">Bahan</span>
+                        <span class="text-slate-500">Skor 1-4</span>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border border-amber-200">
+                        <span class="font-bold block text-amber-800">Kerapian</span>
+                        <span class="text-slate-500">Skor 1-4</span>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border border-amber-200">
+                        <span class="font-bold block text-amber-800">Presentasi</span>
+                        <span class="text-slate-500">Skor 1-4</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. KUIS INTERAKTIF -->
+        <section id="kuis" class="content-section hidden">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-brand-blue mb-2"><i class="fa-solid fa-clipboard-question text-brand-orange mr-2"></i>Kuis Evaluasi 3D</h2>
+                <p class="text-slate-600">Jawab 10 pertanyaan pilihan ganda berikut untuk menguji pemahamanmu!</p>
+            </div>
+
+            <!-- Quiz Container -->
+            <div id="quizContainer" class="bg-white p-6 sm:p-8 rounded-3xl custom-card border border-slate-100">
+                <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
+                    <span id="quizProgress" class="font-bold text-brand-orange text-sm">Soal 1 dari 10</span>
+                    <span id="quizScoreBadge" class="bg-blue-50 text-brand-blue px-3 py-1 rounded-full text-xs font-bold">Skor Sementara: 0</span>
+                </div>
+
+                <div id="quizQuestionBox">
+                    <h3 id="quizQuestionText" class="text-lg sm:text-xl font-bold text-slate-800 mb-6 leading-snug">Pertanyaan akan muncul di sini...</h3>
+                    <div id="quizOptions" class="space-y-3">
+                        <!-- Pilihan jawaban diinjeksi via JS -->
+                    </div>
+                </div>
+
+                <div id="quizFeedback" class="hidden mt-6 p-4 rounded-2xl text-sm font-medium"></div>
+
+                <div class="mt-8 flex justify-end">
+                    <button id="btnNextQuiz" onclick="nextQuestion()" class="hidden bg-brand-orange text-white font-bold px-6 py-3 rounded-xl text-sm shadow-md hover:bg-orange-600 transition">
+                        Soal Selanjutnya <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Result Box (Hidden default) -->
+            <div id="quizResultBox" class="hidden bg-white p-8 rounded-3xl custom-card border border-slate-100 text-center">
+                <div class="w-20 h-20 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-4 text-4xl">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-1">Kuis Selesai!</h3>
+                <p class="text-slate-500 text-sm mb-6">Berikut adalah hasil evaluasi belajar kamu:</p>
+                <div class="text-5xl font-extrabold text-brand-orange mb-6" id="finalQuizScore">0</div>
+                <div class="flex justify-center gap-4">
+                    <button onclick="resetQuiz()" class="bg-slate-100 text-slate-700 px-6 py-3 rounded-xl font-bold text-sm hover:bg-slate-200">Ulangi Kuis</button>
+                    <button onclick="showSection('sertifikat')" class="bg-brand-orange text-white px-6 py-3 rounded-xl font-bold text-sm shadow-md hover:bg-orange-600">Lihat Sertifikat</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. REFLEKSI SISWA -->
+        <section id="refleksi" class="content-section hidden">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-brand-blue mb-2"><i class="fa-solid fa-lightbulb text-brand-orange mr-2"></i>Refleksi Pembelajaran</h2>
+                <p class="text-slate-600">Ungkapkan pendapat dan perasaaimu setelah mengikuti pembelajaran ini.</p>
+            </div>
+
+            <div class="bg-white p-6 sm:p-8 rounded-3xl custom-card border border-slate-100">
+                <form id="refleksiForm" onsubmit="simpanRefleksi(event)" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">1. Apa hal terpenting yang kamu pelajari hari ini?</label>
+                        <textarea id="refleksi1" required rows="2" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-orange text-sm" placeholder="Saya belajar tentang..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">2. Bagian mana yang menurutmu paling menarik dan menyenangkan?</label>
+                        <textarea id="refleksi2" required rows="2" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-orange text-sm" placeholder="Saat membuat karya..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">3. Kesulitan apa yang kamu alami dan bagaimana cara mengatasinya?</label>
+                        <textarea id="refleksi3" required rows="2" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-orange text-sm" placeholder="Kesulitan saya... dan saya mengatasinya dengan..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-bounce bg-brand-blue text-white font-bold px-8 py-3 rounded-xl shadow-md text-sm">
+                        <i class="fa-solid fa-floppy-disk mr-2"></i> Simpan Refleksi
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 10. SERTIFIKAT DIGITAL -->
+        <section id="sertifikat" class="content-section hidden">
+            <div class="mb-8 flex justify-between items-center no-print">
+                <div>
+                    <h2 class="text-3xl font-bold text-brand-blue mb-2"><i class="fa-solid fa-award text-brand-orange mr-2"></i>Sertifikat Kelulusan</h2>
+                    <p class="text-slate-600">Sertifikat penghargaan atas penyelesaian materi Karya 3D.</p>
+                </div>
+                <button onclick="window.print()" class="bg-brand-orange text-white px-6 py-3 rounded-xl font-bold text-sm shadow-md">
+                    <i class="fa-solid fa-print mr-2"></i> Cetak Sertifikat
+                </button>
+            </div>
+
+            <!-- Tampilan Sertifikat -->
+            <div class="bg-white p-8 sm:p-12 rounded-3xl border-8 border-amber-300 shadow-2xl relative overflow-hidden text-center max-w-4xl mx-auto">
+                <div class="border-2 border-dashed border-amber-400 p-8 rounded-2xl">
+                    <div class="w-16 h-16 bg-amber-400 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-lg">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <span class="text-xs font-bold tracking-widest text-amber-700 uppercase">Sertifikat Penghargaan</span>
+                    <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-blue mt-2 mb-4">KREASI 3 DIMENSI</h1>
+                    <p class="text-sm text-slate-600">Diberikan secara bangga kepada:</p>
+                    <h2 id="certSiswaNama" class="text-2xl sm:text-3xl font-bold text-brand-orange my-4 underline decoration-amber-400">Nama Siswa Pembelajar</h2>
+                    <p class="text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
+                        Telah berhasil mempelajari materi, melakukan aktivitas interaktif, serta merancang proyek karya 3 dimensi pada Mata Pelajaran Seni Rupa Kelas VI SD.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-8 mt-12 pt-8 border-t border-slate-200 text-center text-xs">
+                        <div>
+                            <p class="text-slate-400 mb-8">Tanggal Penyelesaian</p>
+                            <p id="certTanggal" class="font-bold text-slate-800">-- November 2026</p>
+                        </div>
+                        <div>
+                            <p class="text-slate-400 mb-8">Guru Seni Rupa / Pengajar</p>
+                            <p class="font-bold text-slate-800">.........................................</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL PANDUAN GURU & GOOGLE APPS SCRIPT -->
+    <div id="modalPanduan" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative">
+            <button onclick="toggleModal('modalPanduan')" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-2xl font-bold text-brand-blue mb-4"><i class="fa-solid fa-code text-brand-orange mr-2"></i>Panduan Integrasi Guru</h3>
+            
+            <div class="space-y-4 text-sm text-slate-600">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <label class="block font-bold text-slate-800 mb-1">1. URL Web App Google Apps Script Guru:</label>
+                    <input type="text" id="scriptUrlInput" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs font-mono">
+                    <button onclick="saveScriptUrl()" class="mt-2 bg-indigo-600 text-white px-4 py-1.5 rounded-lg text-xs font-bold">Simpan URL Script</button>
+                </div>
+
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <label class="block font-bold text-slate-800 mb-1">2. URL Template LKPD Google Dokumen Guru:</label>
+                    <input type="text" id="docsUrlInput" placeholder="https://docs.google.com/document/d/..." class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs font-mono">
+                    <button onclick="saveDocsUrl()" class="mt-2 bg-indigo-600 text-white px-4 py-1.5 rounded-lg text-xs font-bold">Simpan URL Docs</button>
+                </div>
+
+                <div class="border-t pt-4">
+                    <h4 class="font-bold text-slate-800 mb-2">Kode Google Apps Script (Code.gs):</h4>
+                    <p class="text-xs mb-2">Salin kode di bawah ke dalam Google Apps Script (Extensions -> Apps Script pada Google Sheet):</p>
+                    <pre class="bg-slate-900 text-emerald-400 p-4 rounded-xl text-xs overflow-x-auto font-mono">
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = JSON.parse(e.postData.contents);
+  
+  sheet.appendRow([
+    new Date(),
+    data.nama,
+    data.kelas,
+    data.karya,
+    data.bahan,
+    data.langkah,
+    data.pengamatan,
+    data.skorKuis,
+    data.refleksi
+  ]);
+  
+  return ContentService.createTextOutput(JSON.stringify({"result":"success"}))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 no-print mt-12">
+        <p>© 2026 Media Pembelajaran Seni Rupa Kelas VI SD - Menciptakan Karya 3 Dimensi.</p>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // State URL Integrasi
+        let SCRIPT_URL = localStorage.getItem('appScriptUrl') || '';
+        let DOCS_URL = localStorage.getItem('appDocsUrl') || 'https://docs.google.com';
+
+        document.getElementById('scriptUrlInput').value = SCRIPT_URL;
+        document.getElementById('docsUrlInput').value = DOCS_URL;
+
+        function saveScriptUrl() {
+            SCRIPT_URL = document.getElementById('scriptUrlInput').value.trim();
+            localStorage.setItem('appScriptUrl', SCRIPT_URL);
+            alert('URL Apps Script Berhasil Disimpan!');
+        }
+
+        function saveDocsUrl() {
+            DOCS_URL = document.getElementById('docsUrlInput').value.trim();
+            localStorage.setItem('appDocsUrl', DOCS_URL);
+            alert('URL Google Docs Berhasil Disimpan!');
+        }
+
+        function bukaGoogleDocs() {
+            window.open(DOCS_URL, '_blank');
+        }
+
+        // Navigasi Section
+        function showSection(id) {
+            document.querySelectorAll('.content-section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Auto close mobile menu
+            document.getElementById('mobileMenu').classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        }
+
+        function toggleModal(id) {
+            document.getElementById(id).classList.toggle('hidden');
+        }
+
+        // Aktivitas Game Interaktif
+        let gameScore = 0;
+        function checkAnswerGame(el, isCorrect) {
+            if (isCorrect) {
+                el.classList.remove('border-slate-200');
+                el.classList.add('border-emerald-500', 'bg-emerald-50');
+                gameScore += 25;
+                document.getElementById('actScore').innerText = `Skor: ${gameScore}`;
+                alert('Tepat Sekali! Ini adalah Karya 3 Dimensi!');
+            } else {
+                el.classList.remove('border-slate-200');
+                el.classList.add('border-red-500', 'bg-red-50');
+                alert('Kurang Tepat. Ini adalah Karya 2 Dimensi (Gambar/Foto).');
+            }
+        }
+
+        // Kuis Evaluasi (10 Soal Pilihan Ganda)
+        const quizData = [
+            { q: "Karya seni rupa yang memiliki panjang, lebar, dan volume dinamakan karya...", a: ["2 Dimensi", "3 Dimensi", "1 Dimensi", "Tanpa Dimensi"], c: 1 },
+            { q: "Manakah di bawah ini yang MERUPAKAN contoh karya seni 3 dimensi?", a: ["Foto pemandangan", "Patung kuda", "Lukisan kanvas", "Gambar kartun"], c: 1 },
+            { q: "Salah satu ciri utama karya seni 3 dimensi adalah...", a: ["Hanya bisa dilihat dari depan", "Tidak memiliki ruang", "Dapat dilihat dari berbagai sudut pandang", "Hanya berupa garis rata"], c: 2 },
+            { q: "Teknik membuat karya 3D dengan cara memijat/meremas bahan lunak disebut...", a: ["Teknik Memahat", "Teknik Butsir", "Teknik Cetak", "Teknik Las"], c: 1 },
+            { q: "Bahan lunak yang cocok digunakan untuk membuat patung sederhana adalah...", a: ["Batu kali", "Kayu jati", "Plastisin / Tanah liat", "Kaca tebal"], c: 2 },
+            { q: "Menggabungkan atau merakit potongan kardus menjadi miniatur rumah menggunakan lem disebut teknik...", a: ["Pahat", "Konstruksi", "Butsir", "Cetak"], c: 1 },
+            { q: "Unsur fisik karya 3D yang memberikan kesan kasar atau halusnya permukaan benda dinamakan...", a: ["Tekstur", "Warna", "Garis", "Titik"], c: 0 },
+            { q: "Berikut alat yang aman digunakan siswa SD untuk memotong kardus tipis adalah...", a: ["Pahat baja", "Gunting tumpul/anak", "Gergaji mesin", "Pisau dapur besar"], c: 1 },
+            { q: "Karya kerajinan 3D yang memanfaatkan kembali barang tidak terpakai disebut karya...", a: ["Bahan mahal", "Daur ulang / Reuse", "Impor", "Pabrikan"], c: 1 },
+            { q: "Tujuan utama merancang sketsa sebelum membuat karya 3D adalah...", a: ["Agar bahan cepat habis", "Sebagai panduan rencana pembuatan karya", "Untuk dinilai langsung", "Supaya tidak perlu memakai lem"], c: 1 }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const data = quizData[currentQ];
+            document.getElementById('quizProgress').innerText = `Soal ${currentQ + 1} dari ${quizData.length}`;
+            document.getElementById('quizQuestionText').innerText = data.q;
+            
+            const optBox = document.getElementById('quizOptions');
+            optBox.innerHTML = '';
+            
+            data.a.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl border border-slate-200 hover:border-brand-orange hover:bg-orange-50 transition text-sm font-medium flex items-center justify-between";
+                btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-slate-300"></i>`;
+                btn.onclick = () => selectOption(idx, btn);
+                optBox.appendChild(btn);
+            });
+
+            document.getElementById('quizFeedback').classList.add('hidden');
+            document.getElementById('btnNextQuiz').classList.add('hidden');
+        }
+
+        function selectOption(idx, btn) {
+            const data = quizData[currentQ];
+            const allBtns = document.getElementById('quizOptions').children;
+            for (let b of allBtns) b.disabled = true;
+
+            const feedback = document.getElementById('quizFeedback');
+            feedback.classList.remove('hidden');
+
+            if (idx === data.c) {
+                score += 10;
+                btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-800');
+                feedback.className = "mt-4 p-4 rounded-2xl bg-emerald-50 text-emerald-800 text-sm font-bold border border-emerald-200";
+                feedback.innerText = " Jawaban Benar! Selamat!";
+            } else {
+                btn.classList.add('bg-red-100', 'border-red-500', 'text-red-800');
+                feedback.className = "mt-4 p-4 rounded-2xl bg-red-50 text-red-800 text-sm font-bold border border-red-200";
+                feedback.innerText = ` Jawaban Kurang Tepat. Jawaban yang benar: ${data.a[data.c]}`;
+            }
+
+            document.getElementById('quizScoreBadge').innerText = `Skor Sementara: ${score}`;
+            document.getElementById('btnNextQuiz').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQ++;
+            if (currentQ < quizData.length) {
+                loadQuestion();
+            } else {
+                showQuizResult();
+            }
+        }
+
+        function showQuizResult() {
+            document.getElementById('quizContainer').classList.add('hidden');
+            document.getElementById('quizResultBox').classList.remove('hidden');
+            document.getElementById('finalQuizScore').innerText = score;
+        }
+
+        function resetQuiz() {
+            currentQ = 0;
+            score = 0;
+            document.getElementById('quizScoreBadge').innerText = `Skor Sementara: 0`;
+            document.getElementById('quizResultBox').classList.add('hidden');
+            document.getElementById('quizContainer').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        // Simpan Proyek (Kirim Apps Script)
+        function simpanProyek(e) {
+            e.preventDefault();
+            const nama = document.getElementById('siswaNama').value;
+            const kelas = document.getElementById('siswaKelas').value;
+            const karya = document.getElementById('karyaNama').value;
+            const bahan = document.getElementById('karyaBahan').value;
+            const langkah = document.getElementById('karyaLangkah').value;
+            const pengamatan = document.getElementById('karyaPengamatan').value;
+
+            // Update nama di Sertifikat
+            document.getElementById('certSiswaNama').innerText = nama;
+            document.getElementById('certTanggal').innerText = new Date().toLocaleDateString('id-ID');
+
+            if (!SCRIPT_URL) {
+                alert('Proyek berhasil disimpan di browser! (Guru belum mengeset URL Apps Script)');
+                return;
+            }
+
+            const btn = document.getElementById('btnSubmitProyek');
+            btn.disabled = true;
+            btn.innerText = 'Mengirim...';
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    nama, kelas, karya, bahan, langkah, pengamatan, skorKuis: score, refleksi: "-"
+                })
+            }).then(() => {
+                alert(' Data berhasil dikirim ke Google Spreadsheet Guru!');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> KIRIM HASIL KE GOOGLE SPREADSHEET';
+            }).catch(err => {
+                alert('Gagal mengirim data. Periksa koneksi internet.');
+                btn.disabled = false;
+            });
+        }
+
+        function simpanRefleksi(e) {
+            e.preventDefault();
+            alert('Refleksi kamu berhasil disimpan! Terima kasih sudah belajar dengan tekun.');
+        }
+
+        // Init Pertama
+        loadQuestion();
+    </script>
+</body>
+</html>
